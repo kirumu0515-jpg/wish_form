@@ -5,24 +5,24 @@ import json
 app = Flask(__name__)
 DATA_FILE = "data/wishes.json"
 
-# JSONファイルがなければ作る
+# wishes.json がなければ作成
 if not os.path.exists(DATA_FILE):
+    os.makedirs("data", exist_ok=True)
     with open(DATA_FILE, "w", encoding="utf-8") as f:
         json.dump([], f, ensure_ascii=False, indent=2)
 
 @app.route("/")
 def index():
-    return render_template("form.html")
+    return render_template("form.html")  # templates/form.html を返す
 
 @app.route("/submit", methods=["POST"])
 def submit():
-    # フォームデータ取得
     name = request.form.get("name")
     wish = request.form.get("wish")
     color = request.form.get("color")
     hometown = request.form.get("hometown")
 
-    # JSONに追加保存
+    # JSONに追加
     with open(DATA_FILE, "r+", encoding="utf-8") as f:
         data = json.load(f)
         data.append({
@@ -30,9 +30,6 @@ def submit():
             "wish": wish,
             "color": color,
             "hometown": hometown
-
-             
-
         })
         f.seek(0)
         json.dump(data, f, ensure_ascii=False, indent=2)
@@ -40,7 +37,7 @@ def submit():
 
     return f"<h2>送信完了！{name}さんの灯籠を受け取りました🌕</h2>"
 
-# oF 用 API：最新願い事を取得
+# oF 用 API: 最新願い事を取得
 @app.route("/api/wishes")
 def api_wishes():
     with open(DATA_FILE, "r", encoding="utf-8") as f:
@@ -50,8 +47,3 @@ def api_wishes():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
-
-
-  
-
-    
