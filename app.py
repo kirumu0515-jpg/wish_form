@@ -31,7 +31,7 @@ def submit():
             "color": color,
             "hometown": hometown
 
-              print(name, wish, color, hometown)
+             
 
         })
         f.seek(0)
