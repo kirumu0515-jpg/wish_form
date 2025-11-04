@@ -16,6 +16,9 @@ def submit():
     color = request.form.get("color")
     hometown = request.form.get("hometown")
 
+    # ログに出力
+    print(name, wish, color, hometown)
+
     # OSC送信（Render内で完結する場合、サーバー自身のポートに送信）
     # Render サーバー内の OSC 受信プログラムに届くイメージ
     client = udp_client.SimpleUDPClient("127.0.0.1", 5005)
