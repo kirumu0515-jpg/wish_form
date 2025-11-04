@@ -4,77 +4,25 @@
   <meta charset="UTF-8">
   <title>灯籠の願いフォーム</title>
   <style>
-    body {
-      font-family: "Yu Gothic", sans-serif;
-      background-color: #fffaf0;
-      padding: 40px;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    h1 {
-      text-align: center;
-      color: #ff8c00;
-      margin-bottom: 30px;
-    }
-
-    form {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      padding: 20px 30px;
-    }
-
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-      color: #333;
-    }
-
-    input, textarea, select {
-      width: 100%;
-      margin-top: 8px;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 14px;
-      box-sizing: border-box;
-    }
-
-    textarea {
-      height: 100px;
-      resize: vertical;
-    }
-
-    button {
-      display: block;
-      width: 100%;
-      margin-top: 25px;
-      padding: 12px;
-      background-color: #ffa500;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-
-    button:hover {
-      background-color: #ff8c00;
-    }
+    body { font-family: "Yu Gothic", sans-serif; background-color: #fffaf0; padding: 40px; max-width: 600px; margin: 0 auto; }
+    h1 { text-align: center; color: #ff8c00; margin-bottom: 30px; }
+    form { background: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); padding: 20px 30px; }
+    label { display: block; margin-top: 15px; font-weight: bold; color: #333; }
+    input, textarea, select { width: 100%; margin-top: 8px; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; box-sizing: border-box; }
+    textarea { height: 100px; resize: vertical; }
+    button { display: block; width: 100%; margin-top: 25px; padding: 12px; background-color: #ffa500; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; transition: background-color 0.2s; }
+    button:hover { background-color: #ff8c00; }
   </style>
 </head>
 <body>
   <h1>🌕 あなたの灯籠をつくろう</h1>
 
-  <form action="http://localhost:5000/submit" method="POST">
+  <form action="/submit" method="POST">
     <label>名前：</label>
-    <input type="text" name="name" placeholder="名前を入力してください">
+    <input type="text" name="name" placeholder="名前を入力してください" required>
 
     <label>願い事：</label>
-    <textarea name="wish" placeholder="あなたの願いを書いてください"></textarea>
+    <textarea name="wish" placeholder="あなたの願いを書いてください" required></textarea>
 
     <label>灯籠の色：</label>
     <select name="color">
