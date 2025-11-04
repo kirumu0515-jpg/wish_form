@@ -3,9 +3,11 @@ import os
 import json
 
 app = Flask(__name__)
+
+# JSON ファイルのパス
 DATA_FILE = "data/wishes.json"
 
-# wishes.json がなければ作成
+# data フォルダがなければ作成し、JSON を初期化
 if not os.path.exists(DATA_FILE):
     os.makedirs("data", exist_ok=True)
     with open(DATA_FILE, "w", encoding="utf-8") as f:
@@ -13,7 +15,7 @@ if not os.path.exists(DATA_FILE):
 
 @app.route("/")
 def index():
-    return render_template("form.html")  # templates/form.html を返す
+    return render_template("form.html")
 
 @app.route("/submit", methods=["POST"])
 def submit():
@@ -22,9 +24,12 @@ def submit():
     color = request.form.get("color")
     hometown = request.form.get("hometown")
 
-    # JSONに追加
+    # JSON に追加
     with open(DATA_FILE, "r+", encoding="utf-8") as f:
-        data = json.load(f)
+        try:
+            data = json.load(f)
+        except json.JSONDecodeError:
+            data = []  # 空ファイルや壊れた JSON の場合
         data.append({
             "name": name,
             "wish": wish,
@@ -37,11 +42,14 @@ def submit():
 
     return f"<h2>送信完了！{name}さんの灯籠を受け取りました🌕</h2>"
 
-# oF 用 API: 最新願い事を取得
+# oF 用 API: JSON を返す
 @app.route("/api/wishes")
 def api_wishes():
     with open(DATA_FILE, "r", encoding="utf-8") as f:
-        data = json.load(f)
+        try:
+            data = json.load(f)
+        except json.JSONDecodeError:
+            data = []
     return jsonify(data)
 
 if __name__ == "__main__":
